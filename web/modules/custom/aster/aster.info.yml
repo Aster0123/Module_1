@@ -1,0 +1,5 @@
+name: Aster
+type: module
+description: 'Example for Drupal 8 modules.'
+package: Custom
+core_version_requirement: ^9
