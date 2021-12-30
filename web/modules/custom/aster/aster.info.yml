@@ -1,5 +1,6 @@
-name: Aster
+name: aster
+description: 'This module creates a page with a list of cats and a form where users can leave photos of their pets.'
 type: module
-description: 'Example for Drupal 8 modules.'
-package: Custom
-core_version_requirement: ^9
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: aster

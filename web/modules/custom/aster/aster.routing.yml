@@ -1,0 +1,7 @@
+aster.cats:
+  path: '/aster/cats'
+  defaults:
+    _title: 'Cats'
+    _controller: '\Drupal\aster\Controller\CatController::page'
+  requirements:
+    _permission: 'access content'

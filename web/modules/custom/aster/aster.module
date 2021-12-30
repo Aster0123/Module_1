@@ -1,0 +1,10 @@
+<?php
+//
+//function example_menu() {
+//  $items['/aster/cats'] = array(
+//    'title' => 'Cats',
+//    'description' => 'This is a example page.',
+//    'route' => 'aster.cats',
+//  );
+//  return $items;
+//}
