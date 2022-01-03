@@ -1,0 +1,26 @@
+/*!* ---------- Color Module Styles ----------- *!*/
+
+body {
+  background-color: #b3d9ff;
+}
+header {
+  background-color: #004080;
+}
+.highlighted{
+  background-color: #72a7da;
+}
+/*!* ---------- Color Form ----------- *!*/
+
+/*[dir="rtl"] .color-form .color-palette {*/
+/*  margin-left: 0;*/
+/*  margin-right: 20px;*/
+/*}*/
+
+/*[dir="rtl"] .color-form .form-item label {*/
+/*  float: right;*/
+/*}*/
+
+/*[dir="rtl"] .color-form .color-palette .lock {*/
+/*  right: -20px;*/
+/*  left: 0;*/
+/*}*/

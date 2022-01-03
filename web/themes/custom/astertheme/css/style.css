@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+header {
+  display: flex;
+}
+header .navbar-expand-md {
+  margin: 25px auto;
+}
+header .navbar-expand-md a {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-size: 74px;
+  text-shadow: black 8px 5px 10px;
+}
+header .navbar-expand-md a img {
+  width: 141px;
+}
+.highlighted .nav-item .nav-link{
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-size: 24px;
+}
