@@ -15,3 +15,25 @@
   margin-bottom: 48px;
   font-weight: 100;
 }
+#edit-cat-image-upload{
+  width: 280px;
+}
+
+#edit-submit{
+  width: 160px;
+}
+#cats-form{
+  width: 500px;
+}
+
+#edit-cat-image-remove-button--dT_nqV3X2LE{
+  width: 160px;
+  margin-left: 50px;
+}
+.messages--status{
+  background-color: #ff9999;
+  border: 2px solid red;
+  font-size: 20px;
+  padding: 15px;
+  font-family: 'Poppins', sans-serif;
+}
