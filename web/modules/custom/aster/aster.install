@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+
+function aster_schema(): array
+{
+  $schema['aster'] = [
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => true,
+        'not null' => true,
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => true,
+        'default' => '',
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+        'default' => '',
+      ],
+      'image' => [
+        'type' => 'int',
+        'length' => 20,
+        'not null' => true,
+      ],
+      'date' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+        'default' => '',
+      ],
+    ],
+    'primary key' => [
+      'id' ,
+    ],
+  ];
+
+  return $schema;
+}
+
