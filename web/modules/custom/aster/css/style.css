@@ -1,39 +1,74 @@
-.block-page-title-block .content h1{
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Beastly&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+.block-page-title-block .content h1 {
   margin-top: 30px;
   font-family: 'Poppins', sans-serif;
   color: black;
   font-size: 40px;
   font-weight: 300;
 }
-.button{
-  box-shadow: 0 3px 5px  black;
+.button {
+  box-shadow: 0 3px 5px black;
 }
 
-.block-system-main-block .content h1{
+.block-system-main-block .content h1 {
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
   margin-bottom: 48px;
   font-weight: 100;
 }
-#edit-cat-image-upload{
+#edit-cat-image-upload {
   width: 280px;
 }
 
-#edit-submit{
+#edit-submit {
   width: 160px;
 }
-#cats-form{
+#cats-form {
   width: 500px;
+  margin-bottom: 50px;
 }
 
-#edit-cat-image-remove-button--dT_nqV3X2LE{
+#edit-cat-image-remove-button--dT_nqV3X2LE {
   width: 160px;
   margin-left: 50px;
 }
-.messages--status{
-  background-color: #ff9999;
+.messages--status {
+  background-color: #f99;
   border: 2px solid red;
   font-size: 20px;
   padding: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+.cat-table {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+  margin-bottom: 40px;
+  padding: 25px;
+  border-radius: 10px;
+  background: rgb(102, 153, 255, 0.37);
+}
+.cat-tb {
+  display: flex;
+}
+.cat-name {
+  margin: auto;
+}
+.cat-email {
+  margin: auto;
+}
+.cat-photo {
+  margin: auto 50px auto auto;
+}
+.cat-photo img {
+  width: 250px;
+  height: 250px;
+  border-radius: 20%;
+}
+h3 {
+  font-family: 'Rubik Beastly', cursive;
+}
+h5 {
   font-family: 'Poppins', sans-serif;
 }

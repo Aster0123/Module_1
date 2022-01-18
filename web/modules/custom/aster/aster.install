@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @return mixed
  * Implements hook_schema().
  */
 
@@ -38,10 +39,9 @@ function aster_schema(): array
       ],
     ],
     'primary key' => [
-      'id' ,
+      'id',
     ],
   ];
 
   return $schema;
 }
-

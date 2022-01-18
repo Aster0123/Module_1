@@ -2,12 +2,14 @@
 
 namespace Drupal\aster\Form;
 
+use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\MessageCommand;
-use Drupal\Core\Ajax\HtmlCommand;
-use Drupal\Core\Ajax\CssCommand;
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
+use Drupal\Core\Database\Connection;
 
 class CatsForm extends FormBase
 {
@@ -29,6 +31,7 @@ class CatsForm extends FormBase
       '#title' => $this->t('Your cat’s name:'),
       '#placeholder' => $this->t('The name must be in range from 2 to 32 symbols'),
       '#required' => TRUE,
+      '#maxlength' => 32,
     ];
 
     $form['email'] = [
@@ -74,12 +77,20 @@ class CatsForm extends FormBase
 
   public function validateForm(array &$form, FormStateInterface $form_state)
   {
-    if ((mb_strlen($form_state->getValue('cat_name')) < 2)) {
-      $form_state->setErrorByName('cat_name', $this->t('Your cat`s name should be more than 2 symbols.'));
-    } elseif ((mb_strlen($form_state->getValue('cat_name')) > 32)) {
-      $form_state->setErrorByName('cat_name', $this->t('Your cat`s name should be less than 32 symbols.'));
+    if(!$this->validateName($form, $form_state)){
+      return false;
     }
   }
+  public function validateName(array &$form, FormStateInterface $form_state)
+  {
+    if ((mb_strlen($form_state->getValue('cat_name')) < 2)) {
+     return false;
+    } elseif ((mb_strlen($form_state->getValue('cat_name')) > 32)) {
+     return false;
+    }
+    return true;
+  }
+
 
   public function validateEmail(array &$form, FormStateInterface $form_state)
   {
@@ -92,20 +103,38 @@ class CatsForm extends FormBase
 
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
+    if($this->validateName($form, $form_state)){
+      $picture = $form_state->getValue('cat_image');
+      $file = File::load($picture[0]);
+      $file->setPermanent();
+      $file->save();
+
+      $cat = [
+        'name' => $form_state->getValue('cat_name'),
+        'email' => $form_state->getValue('email'),
+        'image' => $picture[0],
+        'date' => date('d-m-Y H:i:s', strtotime('+3 hour')),
+      ];
+
+      \Drupal::database()->insert('aster')->fields($cat)->execute();
+    }
 
   }
 
   public function AjaxSubmit(array &$form, FormStateInterface $form_state)
   {
     $response = new AjaxResponse();
-    if ($form_state->hasAnyErrors()) {
-      foreach ($form_state->getErrors() as $errors_array) {
-        $response->addCommand(new MessageCommand($errors_array));
-      }
+    $nameValid = $this->validateName($form, $form_state);
+
+    if (!$nameValid) {
+      $response->addCommand(new MessageCommand('Your name is NOT valid'));
     } else {
       $response->addCommand(new MessageCommand('Congratulations! You added your cat!'));
     }
     \Drupal::messenger()->deleteAll();
+    $url = Url::fromRoute('aster.cats');
+    $response->addCommand(new RedirectCommand($url->toString()));
+    $response ->addCommand(new MessageCommand($this->t('✓ Your added your cat =)')));
     return $response;
   }
 
