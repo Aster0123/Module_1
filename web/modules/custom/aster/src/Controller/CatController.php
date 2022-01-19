@@ -31,7 +31,8 @@ class CatController extends ControllerBase
       $file = File::load($row->image);
       $uri = $file->getFileUri();
       $photoCats = [
-        '#theme' => 'image',
+        '#theme' => 'image_style',
+        '#style_name' => 'wide',
         '#uri' => $uri,
         '#alt' => 'Cat',
         '#title' => 'Cat',
@@ -40,9 +41,7 @@ class CatController extends ControllerBase
       $data[] = [
         'name' => $row->name,
         'email' => $row->email,
-        'image' => [
-          'data' => $photoCats,
-        ],
+        'image' =>  $photoCats,
         'date' => $row->date,
       ];
     };

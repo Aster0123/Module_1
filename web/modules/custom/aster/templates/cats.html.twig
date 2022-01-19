@@ -6,7 +6,7 @@
       <div class="cat-tb">
       <h3 class="cat-name">{{ cat.name }}</h3>
       <h3 class="cat-email">{{ cat.email }}</h3>
-      <h3 class="cat-photo">{{ cat.image }}</h3>
+        <div class="cat-photo"><a href="{{ file_url(cat.image['#uri']) }}" target="_blank">{{ cat.image }}</a></div>
       </div>
     </div>
   {% endfor %}

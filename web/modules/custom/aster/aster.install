@@ -28,8 +28,9 @@ function aster_schema(): array
       ],
       'image' => [
         'type' => 'int',
-        'length' => 20,
         'not null' => true,
+        'default' => 0,
+        'length' => 64,
       ],
       'date' => [
         'type' => 'varchar',
