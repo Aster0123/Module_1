@@ -23,7 +23,7 @@ class CatController extends ControllerBase
   {
     $query= \Drupal::database();
     $result = $query->select('aster', 'astertb')
-      ->fields('astertb', ['name', 'email', 'image', 'date'])
+      ->fields('astertb', ['name', 'email', 'image', 'date', 'id',])
       ->orderBy('date', 'DESC')
       ->execute()->fetchAll();
     $data = [];
@@ -43,6 +43,7 @@ class CatController extends ControllerBase
         'email' => $row->email,
         'image' =>  $photoCats,
         'date' => $row->date,
+        'id' => $row->id,
       ];
     };
     return $data;

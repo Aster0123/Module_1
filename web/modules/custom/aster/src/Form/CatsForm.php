@@ -2,14 +2,12 @@
 
 namespace Drupal\aster\Form;
 
-use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\MessageCommand;
-use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Drupal\Core\Database\Connection;
+
 
 class CatsForm extends FormBase
 {
@@ -80,11 +78,13 @@ class CatsForm extends FormBase
     if(!$this->validateName($form, $form_state)){
       return false;
     }
+    else return true;
   }
+
   public function validateName(array &$form, FormStateInterface $form_state)
   {
     if ((mb_strlen($form_state->getValue('cat_name')) < 2)) {
-     return false;
+      return false;
     } elseif ((mb_strlen($form_state->getValue('cat_name')) > 32)) {
      return false;
     }
@@ -132,9 +132,6 @@ class CatsForm extends FormBase
       $response->addCommand(new MessageCommand('Congratulations! You added your cat!'));
     }
     \Drupal::messenger()->deleteAll();
-    $url = Url::fromRoute('aster.cats');
-    $response->addCommand(new RedirectCommand($url->toString()));
-    $response ->addCommand(new MessageCommand($this->t('✓ Your added your cat =)')));
     return $response;
   }
 
