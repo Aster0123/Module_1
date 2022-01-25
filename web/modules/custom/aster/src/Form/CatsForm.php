@@ -75,10 +75,9 @@ class CatsForm extends FormBase
 
   public function validateForm(array &$form, FormStateInterface $form_state)
   {
-    if(!$this->validateName($form, $form_state)){
+    if (!$this->validateName($form, $form_state)) {
       return false;
-    }
-    else return true;
+    } else return true;
   }
 
   public function validateName(array &$form, FormStateInterface $form_state)
@@ -86,11 +85,10 @@ class CatsForm extends FormBase
     if ((mb_strlen($form_state->getValue('cat_name')) < 2)) {
       return false;
     } elseif ((mb_strlen($form_state->getValue('cat_name')) > 32)) {
-     return false;
+      return false;
     }
     return true;
   }
-
 
   public function validateEmail(array &$form, FormStateInterface $form_state)
   {
@@ -103,7 +101,7 @@ class CatsForm extends FormBase
 
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
-    if($this->validateName($form, $form_state)){
+    if ($this->validateName($form, $form_state) && $this->validateEmail($form, $form_state)) {
       $picture = $form_state->getValue('cat_image');
       $file = File::load($picture[0]);
       $file->setPermanent();
@@ -146,4 +144,3 @@ class CatsForm extends FormBase
     return $response;
   }
 }
-
