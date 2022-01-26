@@ -72,14 +72,6 @@ class CatsForm extends FormBase
     return $form;
   }
 
-
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
-    if (!$this->validateName($form, $form_state)) {
-      return false;
-    } else return true;
-  }
-
   public function validateName(array &$form, FormStateInterface $form_state)
   {
     if ((mb_strlen($form_state->getValue('cat_name')) < 2)) {
@@ -99,9 +91,27 @@ class CatsForm extends FormBase
     return true;
   }
 
+  public function validateImage(array &$form, FormStateInterface $form_state){
+    $picture = $form_state->getValue('cat_image');
+
+    if (!empty($picture[0])) {
+      return true;
+    }
+    return false;
+  }
+
+  public function validateForm(array &$form, FormStateInterface $form_state)
+  {
+    if (!$this->validateName($form, $form_state) && $this->validateEmail($form, $form_state) && $this->validateImage($form, $form_state)) {
+      return false;
+    }
+    else return true;
+  }
+
+
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
-    if ($this->validateName($form, $form_state) && $this->validateEmail($form, $form_state)) {
+    if ($this->validateForm($form, $form_state)) {
       $picture = $form_state->getValue('cat_image');
       $file = File::load($picture[0]);
       $file->setPermanent();
@@ -123,17 +133,22 @@ class CatsForm extends FormBase
   {
     $response = new AjaxResponse();
     $nameValid = $this->validateName($form, $form_state);
+    $imageValid = $this->validateImage($form, $form_state);
 
     if (!$nameValid) {
       $response->addCommand(new MessageCommand('Your name is NOT valid'));
-    } else {
+    }
+    elseif(!$imageValid){
+      $response->addCommand(new MessageCommand('Please, upload your cat image'));
+    }
+    else {
       $response->addCommand(new MessageCommand('Congratulations! You added your cat!'));
     }
     \Drupal::messenger()->deleteAll();
     return $response;
   }
 
-  public function AjaxEmail(array &$form, FormStateInterface $form_state)
+  public function AjaxEmail(array &$form, FormStateInterface $form_state): AjaxResponse
   {
     $response = new AjaxResponse();
     if (preg_match("/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/", $form_state->getValue('email'))) {
