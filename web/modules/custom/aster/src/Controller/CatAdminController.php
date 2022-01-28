@@ -8,16 +8,16 @@ use Drupal\file\Entity\File;
 /**
  *
  */
-class CatController extends ControllerBase {
+class CatAdminController extends ControllerBase {
 
   /**
    *
    */
   public function content() {
-    $form = \Drupal::formBuilder()->getForm('Drupal\aster\Form\CatsForm');
+    $form = \Drupal::formBuilder()->getForm('Drupal\aster\Form\AdminForm');
     $element = 'Hello! You can add here a photo of your cat.';
     return [
-      '#theme' => 'cats',
+      '#theme' => 'admin-cats',
       '#form' => $form,
       '#markup' => $element,
       '#list' => $this->catTable(),

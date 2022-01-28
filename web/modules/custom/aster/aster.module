@@ -1,18 +1,29 @@
 <?php
+
+/**
+ * @file
+ */
+
 /**
  * Implements hook_theme().
  */
-function aster_theme($existing, $type, $theme, $path)
-{
+function aster_theme($existing, $type, $theme, $path) {
   return [
     'cats' => [
       'render' => 'form',
       'variables' => [
         'form' => NULL,
         'pager' => NULL,
-        'list'=>[],
+        'list' => [],
+      ],
+    ],
+    'admin-cats' => [
+      'render' => 'form',
+      'variables' => [
+        'form' => NULL,
+        'pager' => NULL,
+        'list' => [],
       ],
     ],
   ];
 }
-

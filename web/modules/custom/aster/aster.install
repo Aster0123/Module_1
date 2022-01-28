@@ -1,41 +1,44 @@
 <?php
 
 /**
+ * @file
  * @return mixed
- * Implements hook_schema().
+ *   Implements hook_schema().
  */
 
-function aster_schema(): array
-{
+/**
+ *
+ */
+function aster_schema(): array {
   $schema['aster'] = [
     'fields' => [
       'id' => [
         'type' => 'serial',
-        'unsigned' => true,
-        'not null' => true,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
       ],
       'name' => [
         'type' => 'varchar',
         'length' => 32,
-        'not null' => true,
+        'not null' => TRUE,
         'default' => '',
       ],
       'email' => [
         'type' => 'varchar',
         'length' => 255,
-        'not null' => true,
+        'not null' => TRUE,
         'default' => '',
       ],
       'image' => [
         'type' => 'int',
-        'not null' => true,
+        'not null' => TRUE,
         'default' => 0,
         'length' => 64,
       ],
       'date' => [
         'type' => 'varchar',
         'length' => 255,
-        'not null' => true,
+        'not null' => TRUE,
         'default' => '',
       ],
     ],

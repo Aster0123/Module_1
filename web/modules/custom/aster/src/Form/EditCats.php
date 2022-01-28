@@ -8,18 +8,24 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 
-class EditCats extends FormBase
-{
+/**
+ *
+ */
+class EditCats extends FormBase {
 
   public $idCat;
 
-  public function getFormId()
-  {
+  /**
+   *
+   */
+  public function getFormId() {
     return 'edit cat';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state, $idCat = NULL)
-  {
+  /**
+   *
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, $idCat = NULL) {
     $this->id = $idCat;
     $query = \Drupal::database();
     $data = $query
@@ -76,44 +82,58 @@ class EditCats extends FormBase
     return $form;
   }
 
-  public function validateName(array &$form, FormStateInterface $form_state)
-  {
+  /**
+   *
+   */
+  public function validateName(array &$form, FormStateInterface $form_state) {
     if ((mb_strlen($form_state->getValue('cat_name')) < 2)) {
-      return false;
-    } elseif ((mb_strlen($form_state->getValue('cat_name')) > 32)) {
-      return false;
+      return FALSE;
     }
-    return true;
+    elseif ((mb_strlen($form_state->getValue('cat_name')) > 32)) {
+      return FALSE;
+    }
+    return TRUE;
   }
 
-  public function validateEmail(array &$form, FormStateInterface $form_state)
-  {
+  /**
+   *
+   */
+  public function validateEmail(array &$form, FormStateInterface $form_state) {
     if (!preg_match("/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/", $form_state->getValue('email'))) {
       $form_state->setErrorByName('email', $this->t('Your email is NOT invalid'));
-      return false;
+      return FALSE;
     }
-    return true;
+    return TRUE;
   }
 
-  public function validateImage(array &$form, FormStateInterface $form_state){
+  /**
+   *
+   */
+  public function validateImage(array &$form, FormStateInterface $form_state) {
     $picture = $form_state->getValue('cat_image');
 
     if (!empty($picture[0])) {
-      return true;
+      return TRUE;
     }
-    return false;
+    return FALSE;
   }
 
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
+  /**
+   *
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     if (!$this->validateName($form, $form_state) && $this->validateEmail($form, $form_state) && $this->validateImage($form, $form_state)) {
-      return false;
+      return FALSE;
     }
-    else return true;
+    else {
+      return TRUE;
+    }
   }
 
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
+  /**
+   *
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($this->validateForm($form, $form_state)) {
       $picture = $form_state->getValue('cat_image');
       $file = File::load($picture[0]);
@@ -130,8 +150,10 @@ class EditCats extends FormBase
     }
   }
 
-  public function AjaxSubmit(array &$form, FormStateInterface $form_state): AjaxResponse
-  {
+  /**
+   *
+   */
+  public function AjaxSubmit(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
     $nameValid = $this->validateName($form, $form_state);
     $imageValid = $this->validateImage($form, $form_state);
@@ -139,7 +161,7 @@ class EditCats extends FormBase
     if (!$nameValid) {
       $response->addCommand(new MessageCommand('Your name is NOT valid'));
     }
-    elseif(!$imageValid){
+    elseif (!$imageValid) {
       $response->addCommand(new MessageCommand('Please, upload your cat image'));
     }
     else {
@@ -149,14 +171,18 @@ class EditCats extends FormBase
     return $response;
   }
 
-  public function AjaxEmail(array &$form, FormStateInterface $form_state): AjaxResponse
-  {
+  /**
+   *
+   */
+  public function AjaxEmail(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
     if (preg_match("/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/", $form_state->getValue('email'))) {
       $response->addCommand(new MessageCommand('Your email is valid'));
-    } else {
-      $response->addCommand(new MessageCommand('Your email is NOT valid', ".null", [], true));
+    }
+    else {
+      $response->addCommand(new MessageCommand('Your email is NOT valid', ".null", [], TRUE));
     }
     return $response;
   }
+
 }

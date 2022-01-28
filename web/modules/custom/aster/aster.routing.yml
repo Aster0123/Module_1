@@ -23,3 +23,21 @@ edit_button:
   requirements:
     _permission: 'administrator'
     _role: 'administrator'
+
+admin_menu:
+  path: '/admin/structure/cats'
+  defaults:
+    _title: 'Cats list'
+    _controller: '\Drupal\aster\Controller\CatAdminController::content'
+    _form: 'Drupal\aster\Form\AdminForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+admin_delete:
+  path: '/aster/admin/delete-cat/{idCat}/deleteCats'
+  defaults:
+    _form: '\Drupal\aster\Form\AdminDelete'
+    _title: 'Do you want to delete this cat?'
+  requirements:
+    _role: 'administrator'
+    _permission: 'administrator'

@@ -11,7 +11,7 @@ use Drupal\file\Entity\File;
 /**
  *
  */
-class CatsForm extends FormBase {
+class AdminForm extends FormBase {
 
   /**
    *

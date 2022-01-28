@@ -10,7 +10,7 @@ use Drupal\Core\Url;
 /**
  *
  */
-class DeleteCats extends ConfirmFormBase {
+class AdminDelete extends ConfirmFormBase {
 
   public $idCat;
 
@@ -18,7 +18,7 @@ class DeleteCats extends ConfirmFormBase {
    *
    */
   public function getFormId() {
-    return 'delete cat';
+    return 'delete admin cat';
   }
 
   /**
@@ -66,14 +66,14 @@ class DeleteCats extends ConfirmFormBase {
       ->condition('id', $this->id)
       ->execute();
     \Drupal::messenger()->addStatus('You deleted your cat');
-    $form_state->setRedirect('aster.cats');
+    $form_state->setRedirect('admin_menu');
   }
 
   /**
    *
    */
   public function getCancelUrl() {
-    return new Url('aster.cats');
+    return new Url('admin_menu');
   }
 
 }
